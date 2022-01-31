@@ -48,11 +48,6 @@ public class CitizenController {
         return citizenService.saveCitizen(citizen);
     }
 
-    @DeleteMapping("{citizenId}")
-    public void deleteCitizen(@PathVariable UUID citizenId) {
-        citizenService.deleteCitizen(citizenId);
-    }
-
     @PutMapping("{citizenId}")
     public Citizen updateCitizen(@RequestBody Citizen citizen, @PathVariable UUID citizenId) {
         if (!citizenService.isCitizenExist(citizenId)) {
@@ -61,4 +56,10 @@ public class CitizenController {
         citizen.setId(citizenId);
         return citizenService.saveCitizen(citizen);
     }
+
+    @DeleteMapping("{citizenId}")
+    public void deleteCitizen(@PathVariable UUID citizenId) {
+        citizenService.deleteCitizen(citizenId);
+    }
+
 }
