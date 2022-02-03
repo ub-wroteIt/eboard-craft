@@ -22,5 +22,4 @@ public class IdeaEntity extends BaseEntity {
     private UUID contenderId;
     private String title;
     private String description;
-    private int rating;
 }

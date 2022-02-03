@@ -2,11 +2,14 @@ package org.ubwroteit.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.ubwroteit.board.model.IdeaEntity;
 import org.ubwroteit.board.repository.IdeaRepository;
 
+import java.util.List;
 import java.util.UUID;
 
+@Service
 public class IdeaServiceImpl implements IdeaService{
 
     @Autowired
@@ -23,7 +26,22 @@ public class IdeaServiceImpl implements IdeaService{
         return null;
     }
 
-    public boolean isContenderHasMaximumIdeas(UUID contenderId){
+    @Override
+    public List<IdeaEntity> getAllIdeas(UUID contenderId) {
+        return ideaRepository.findAllByContenderId(contenderId);
+    }
+
+    @Override
+    public void deleteIdea(UUID ideaId){
+        ideaRepository.deleteById(ideaId);
+    }
+
+    @Override
+    public IdeaEntity updateIdea(IdeaEntity ideaEntity) {
+        return ideaRepository.save(ideaEntity);
+    }
+
+    private boolean isContenderHasMaximumIdeas(UUID contenderId){
        return ideaRepository.countByContenderId(contenderId) == noOfIdeasAllowed;
     }
 }
