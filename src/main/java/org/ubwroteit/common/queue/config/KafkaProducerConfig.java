@@ -4,9 +4,7 @@ package org.ubwroteit.common.queue.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.kafka.config.TopicBuilder;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-import org.springframework.kafka.core.KafkaAdmin;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
@@ -27,7 +25,4 @@ public class KafkaProducerConfig {
     }
 
 
-    public void listen(String in) {
-        System.out.println(in);
-    }
 }

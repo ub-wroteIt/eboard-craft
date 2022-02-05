@@ -23,7 +23,7 @@ public class FollowerProcessor implements Consumer<FollowerMessage> {
     String resourceUrl;
 
     @Override
-    @KafkaListener(id = "myId", topics = "${follower.topic:followerTopic}")
+    @KafkaListener(id = "myId", topics = "${follower.topic:followerTopic}", containerFactory = "kafkaListenerContainerFactoryForFollower")
     public void consumeMessage(FollowerMessage followerMessage) {
             FollowerEntity followerEntity = new FollowerEntity(followerMessage.getSourceId(), followerMessage.getDestinationId(), followerMessage.getTimestampInMilliseconds(), followerMessage.getStatus(), LocalDateTime.now());
             restTemplate.postForEntity(resourceUrl, followerEntity, FollowerEntity.class);
