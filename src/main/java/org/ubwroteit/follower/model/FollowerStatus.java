@@ -1,6 +1,6 @@
 package org.ubwroteit.follower.model;
 
-public enum FollowerState {
+public enum FollowerStatus {
 
     POSITIVE,
     NEGATIVE,

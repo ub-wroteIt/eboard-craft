@@ -7,6 +7,8 @@ import org.ubwroteit.board.model.IdeaEntity;
 import org.ubwroteit.board.repository.IdeaRepository;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,11 +21,12 @@ public class IdeaServiceImpl implements IdeaService{
     private int noOfIdeasAllowed;
 
     @Override
-    public IdeaEntity saveIdea(IdeaEntity ideaEntity) {
+    public Optional<IdeaEntity> saveIdea(IdeaEntity ideaEntity) {
          if (!isContenderHasMaximumIdeas(ideaEntity.getContenderId())){
-             return ideaRepository.save(ideaEntity);
+             IdeaEntity savedIdeaEntity = ideaRepository.save(ideaEntity);
+             return Optional.of(savedIdeaEntity);
          }
-        return null;
+        return Optional.empty();
     }
 
     @Override
@@ -37,8 +40,16 @@ public class IdeaServiceImpl implements IdeaService{
     }
 
     @Override
-    public IdeaEntity updateIdea(IdeaEntity ideaEntity) {
-        return ideaRepository.save(ideaEntity);
+    public IdeaEntity getIdea(UUID ideaId) {
+        return ideaRepository.getById(ideaId);
+    }
+
+    @Override
+    public Optional<IdeaEntity> updateIdea(IdeaEntity ideaEntity) {
+        if(!Objects.isNull(getIdea(ideaEntity.getId()))){
+            return Optional.of(ideaRepository.save(ideaEntity));
+        }
+        return saveIdea(ideaEntity);
     }
 
     private boolean isContenderHasMaximumIdeas(UUID contenderId){
