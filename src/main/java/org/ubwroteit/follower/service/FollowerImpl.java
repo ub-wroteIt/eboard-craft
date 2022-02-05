@@ -22,6 +22,20 @@ public class FollowerImpl implements FollowerService{
     }
 
     @Override
+    public FollowerEntity createFollower(FollowerEntity followerEntity){
+
+        FollowerId followerId = new FollowerId(followerEntity.getSourceId(), followerEntity.getDestinationId());
+        try {
+            if (!followerRepository.existsById(followerId)) {
+                return followerRepository.save(followerEntity);
+            }
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return followerEntity;
+    }
+
+    @Override
     public void deleteFollowerById(FollowerId followerId) {
         followerRepository.deleteById(followerId);
     }

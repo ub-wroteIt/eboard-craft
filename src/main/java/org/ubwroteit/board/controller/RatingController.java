@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import org.ubwroteit.board.model.RatingEntity;
 import org.ubwroteit.board.model.RatingId;
 import org.ubwroteit.board.service.RatingService;
-import org.ubwroteit.common.model.FollowerMessage;
-import org.ubwroteit.follower.model.FollowerStatus;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +15,8 @@ public class RatingController {
 
     @Autowired
     RatingService ratingService;
+
+
 
     @GetMapping("{ideaId}/{citizenId}/{contenderId}")
     public RatingEntity getRating(@PathVariable UUID ideaId, @PathVariable UUID citizenId, @PathVariable UUID contenderId){
@@ -40,12 +39,9 @@ public class RatingController {
     }
 
     @PostMapping
-    public RatingEntity saveRating(@RequestBody RatingEntity ratingEntity){
-        if(ratingEntity.getRating()>5){
-            //Citizen becomes a follower
-            FollowerMessage followerMessage = new FollowerMessage(ratingEntity.getCitizenId(), ratingEntity.getContenderId(), LocalDateTime.now(), FollowerStatus.POSITIVE);
-        }
-        return ratingService.saveRating(ratingEntity);
+    public RatingEntity saveRating(@RequestBody RatingEntity ratingEntity) {
+        RatingEntity savedRatingEntity = ratingService.saveRating(ratingEntity);
+        return savedRatingEntity;
     }
 
 

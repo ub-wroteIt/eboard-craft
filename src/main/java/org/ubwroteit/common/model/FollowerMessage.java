@@ -1,18 +1,21 @@
 package org.ubwroteit.common.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 import org.ubwroteit.follower.model.FollowerStatus;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
 @Getter
+@NoArgsConstructor
+@Setter
+@ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class FollowerMessage implements Serializable {
     private UUID sourceId;
     private UUID destinationId;
-    private LocalDateTime creationTime;
+    private long timestampInMilliseconds;
     private FollowerStatus status;
 }

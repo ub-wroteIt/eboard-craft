@@ -9,6 +9,9 @@ import java.util.UUID;
 public interface FollowerService {
 
     FollowerEntity saveFollower(FollowerEntity followerEntity);
+
+    FollowerEntity createFollower(FollowerEntity followerEntity);
+
     void deleteFollowerById(FollowerId followerId);
     FollowerEntity updateFollower(FollowerEntity followerEntity);
     FollowerEntity getFollower(FollowerId followerId);

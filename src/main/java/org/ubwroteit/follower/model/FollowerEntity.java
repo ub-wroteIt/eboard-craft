@@ -24,7 +24,7 @@ public class FollowerEntity {
     private UUID sourceId;
     @Id
     private UUID destinationId;
-    private int position;
+    private long position;
 
     @Enumerated(EnumType.STRING)
     private FollowerStatus status;
