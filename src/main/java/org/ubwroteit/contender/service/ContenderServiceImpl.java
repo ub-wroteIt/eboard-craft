@@ -3,9 +3,11 @@ package org.ubwroteit.contender.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ubwroteit.common.exception.ResourceNotFoundException;
+import org.ubwroteit.common.model.ElectionCategory;
 import org.ubwroteit.contender.model.Contender;
 import org.ubwroteit.contender.repository.ContenderRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -28,5 +30,10 @@ public class ContenderServiceImpl implements ContenderService {
     @Override
     public void deleteContender(UUID contenderId) {
          contenderRepository.deleteById(contenderId);
+    }
+
+    @Override
+    public List<Contender> findAllContenders(UUID electionId, int areaId, ElectionCategory electionCategory) {
+        return contenderRepository.findAllByElectionIdAndAreaIdAndCategory(electionId, areaId, electionCategory);
     }
 }

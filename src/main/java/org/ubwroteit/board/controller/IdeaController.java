@@ -1,5 +1,6 @@
 package org.ubwroteit.board.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("idea")
+@Tag(name = "Idea service", description = "the idea API to manage contender ideas")
 public class IdeaController {
 
     @Autowired

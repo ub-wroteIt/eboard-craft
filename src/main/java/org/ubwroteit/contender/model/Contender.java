@@ -24,8 +24,8 @@ import java.util.UUID;
 @Where(clause = "deleted=false")
 public class Contender extends BaseEntity {
     private UUID citizenId;
+    private UUID electionId;
     private int areaId;
-    private int electionYear; //Assumption is election will happen at most once in year.
     @Enumerated(EnumType.ORDINAL)
     private ElectionCategory category;
 }

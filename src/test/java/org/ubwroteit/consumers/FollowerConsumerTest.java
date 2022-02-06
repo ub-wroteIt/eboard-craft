@@ -1,4 +1,4 @@
-package org.ubwroteit.processors;
+package org.ubwroteit.consumers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,7 +9,7 @@ import org.ubwroteit.common.model.FollowerMessage;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class FollowerProcessorTest {
+class FollowerConsumerTest {
 
     ObjectMapper objectMapper= new ObjectMapper();
     @Test

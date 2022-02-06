@@ -1,4 +1,4 @@
-package org.ubwroteit.processors;
+package org.ubwroteit.consumers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @Component
 @Slf4j
-public class NotificationProcessor implements Consumer<NotificationMessage> {
+public class NotificationConsumer implements Consumer<NotificationMessage> {
 
     @Autowired
     RestTemplate restTemplate;

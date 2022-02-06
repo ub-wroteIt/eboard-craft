@@ -29,7 +29,7 @@ public class RatingEntity {
     private UUID citizenId;
     @Id
     private UUID contenderId;
-
+    private UUID electionId;
     @Min(0)
     @Max(10)
     private float rating;

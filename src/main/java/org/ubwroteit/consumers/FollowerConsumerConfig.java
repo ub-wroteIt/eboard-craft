@@ -1,4 +1,4 @@
-package org.ubwroteit.processors;
+package org.ubwroteit.consumers;
 
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.springframework.context.annotation.Bean;

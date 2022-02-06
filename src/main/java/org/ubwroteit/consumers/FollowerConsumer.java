@@ -1,4 +1,4 @@
-package org.ubwroteit.processors;
+package org.ubwroteit.consumers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 
 @Slf4j
 @Component
-public class FollowerProcessor implements Consumer<FollowerMessage> {
+public class FollowerConsumer implements Consumer<FollowerMessage> {
 
     @Autowired
     RestTemplate restTemplate;

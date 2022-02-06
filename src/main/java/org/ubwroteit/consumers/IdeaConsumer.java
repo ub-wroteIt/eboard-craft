@@ -1,4 +1,4 @@
-package org.ubwroteit.processors;
+package org.ubwroteit.consumers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @Slf4j
 @Component
-public class IdeaProcessor implements Consumer<IdeaMessage> {
+public class IdeaConsumer implements Consumer<IdeaMessage> {
 
     @Autowired
     RestTemplate restTemplate;

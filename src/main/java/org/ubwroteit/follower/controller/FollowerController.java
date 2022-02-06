@@ -1,5 +1,6 @@
 package org.ubwroteit.follower.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ubwroteit.follower.model.FollowerEntity;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("follower")
+@Tag(name = "Follower service", description = "the follower API to manage followers")
 public class FollowerController {
 
     @Autowired

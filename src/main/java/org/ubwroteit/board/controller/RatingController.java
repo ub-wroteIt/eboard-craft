@@ -1,5 +1,6 @@
 package org.ubwroteit.board.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ubwroteit.board.model.RatingEntity;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("rating")
+@Tag(name = "Rating service", description = "the rating API to manage citizen ratings")
 public class RatingController {
 
     @Autowired
