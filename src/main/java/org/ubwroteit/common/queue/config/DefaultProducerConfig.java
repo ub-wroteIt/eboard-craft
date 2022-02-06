@@ -9,10 +9,10 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
-public class KafkaProducerConfig {
+public class DefaultProducerConfig {
+
     @Autowired
     BaseSchemaConfig baseSchemaConfig;
-
 
     @Bean
     public ProducerFactory<Integer, String> producerFactory() {

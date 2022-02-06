@@ -2,6 +2,7 @@ package org.ubwroteit.follower.service;
 
 import org.ubwroteit.follower.model.FollowerEntity;
 import org.ubwroteit.follower.model.FollowerId;
+import org.ubwroteit.follower.model.FollowerIdDTO;
 
 import java.util.List;
 import java.util.UUID;
@@ -17,4 +18,6 @@ public interface FollowerService {
     FollowerEntity getFollower(FollowerId followerId);
     List<FollowerEntity> getFollowerBySourceId(UUID sourceId);
     List<FollowerEntity> getFollowerByDestinationId(UUID sourceId);
+
+    List<FollowerIdDTO> getFollowersId(UUID sourceId);
 }

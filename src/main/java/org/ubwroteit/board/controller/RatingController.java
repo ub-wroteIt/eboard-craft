@@ -16,8 +16,6 @@ public class RatingController {
     @Autowired
     RatingService ratingService;
 
-
-
     @GetMapping("{ideaId}/{citizenId}/{contenderId}")
     public RatingEntity getRating(@PathVariable UUID ideaId, @PathVariable UUID citizenId, @PathVariable UUID contenderId){
         return ratingService.getRating(new RatingId(citizenId, ideaId, contenderId));

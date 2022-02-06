@@ -11,4 +11,5 @@ public interface FollowerRepository extends JpaRepository<FollowerEntity, Follow
     List<FollowerEntity> getFollowerBySourceId(UUID sourceId);
     List<FollowerEntity> getFollowerByDestinationId(UUID destinationId);
 
+    <T> List<T> getFollowersIdByDestinationId(UUID destinationId, Class<T> type);
 }

@@ -3,10 +3,13 @@ package org.ubwroteit.follower.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ubwroteit.follower.model.FollowerEntity;
+import org.ubwroteit.follower.model.FollowerIdDTO;
 import org.ubwroteit.follower.service.FollowerService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("follower")
@@ -23,6 +26,12 @@ public class FollowerController {
     @GetMapping("FollowedByMe/{destinationId}")
     public List<FollowerEntity> getFollowedByMe(@PathVariable UUID destinationId){
         return followerService.getFollowerByDestinationId(destinationId);
+    }
+
+    @GetMapping("allFollowers/{sourceId}")
+    public Set<UUID> getFollowersId(@PathVariable UUID sourceId){
+        List<FollowerIdDTO> followers = followerService.getFollowersId(sourceId);
+        return followers.stream().map(FollowerIdDTO::getSourceId).collect(Collectors.toSet());
     }
 
     @PostMapping

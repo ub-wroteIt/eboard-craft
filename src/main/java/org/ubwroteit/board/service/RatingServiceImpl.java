@@ -38,11 +38,8 @@ public class RatingServiceImpl implements RatingService{
             //Citizen becomes a follower
             long timeStamp = Timestamp.from(Instant.now()).getTime();
             FollowerMessage followerMessage = new FollowerMessage(ratingEntity.getCitizenId(), ratingEntity.getContenderId(), timeStamp , FollowerStatus.POSITIVE);
-            try {
-                producer.produceMessage(topicName, followerMessage);
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
+            producer.produceMessage(topicName, followerMessage);
+
         }
         return ratingRepository.save(ratingEntity);
     }

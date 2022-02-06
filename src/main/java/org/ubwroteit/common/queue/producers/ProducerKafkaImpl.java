@@ -1,6 +1,5 @@
 package org.ubwroteit.common.queue.producers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,7 +18,7 @@ public class ProducerKafkaImpl<T> implements Producer<T> {
     ObjectMapper objectMapper;
 
     @Override
-    public void produceMessage(String topic, T t) throws JsonProcessingException {
+    public void produceMessage(String topic, T t) {
             kafkaTemplate.send(topic, t);
     }
 }

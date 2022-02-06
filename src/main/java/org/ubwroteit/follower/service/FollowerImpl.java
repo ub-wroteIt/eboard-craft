@@ -4,13 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.ubwroteit.follower.model.FollowerEntity;
 import org.ubwroteit.follower.model.FollowerId;
+import org.ubwroteit.follower.model.FollowerIdDTO;
 import org.ubwroteit.follower.repository.FollowerRepository;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class FollowerImpl implements FollowerService{
+public class FollowerImpl implements FollowerService {
 
     @Autowired
     FollowerRepository followerRepository;
@@ -22,15 +23,10 @@ public class FollowerImpl implements FollowerService{
     }
 
     @Override
-    public FollowerEntity createFollower(FollowerEntity followerEntity){
-
+    public FollowerEntity createFollower(FollowerEntity followerEntity) {
         FollowerId followerId = new FollowerId(followerEntity.getSourceId(), followerEntity.getDestinationId());
-        try {
-            if (!followerRepository.existsById(followerId)) {
-                return followerRepository.save(followerEntity);
-            }
-        }catch (Exception ex){
-            ex.printStackTrace();
+        if (!followerRepository.existsById(followerId)) {
+            return followerRepository.save(followerEntity);
         }
         return followerEntity;
     }
@@ -58,5 +54,10 @@ public class FollowerImpl implements FollowerService{
     @Override
     public List<FollowerEntity> getFollowerByDestinationId(UUID destinationId) {
         return followerRepository.getFollowerByDestinationId(destinationId);
+    }
+
+    @Override
+    public List<FollowerIdDTO> getFollowersId(UUID sourceId) {
+        return followerRepository.getFollowersIdByDestinationId(sourceId, FollowerIdDTO.class);
     }
 }
