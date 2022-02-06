@@ -1,6 +1,8 @@
 package org.ubwroteit.follower.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.ubwroteit.follower.model.FollowerEntity;
 import org.ubwroteit.follower.model.FollowerId;
@@ -11,17 +13,19 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class FollowerImpl implements FollowerService {
+public class FollowerServiceImpl implements FollowerService {
 
     @Autowired
     FollowerRepository followerRepository;
 
+    @CacheEvict(cacheNames = "followers", key = "#followerEntity.getDestinationId")
     @Override
     public FollowerEntity saveFollower(FollowerEntity followerEntity) {
         //TODO create Valid annotation for Entities
         return followerRepository.save(followerEntity);
     }
 
+    @CacheEvict(cacheNames = "followers", key = "#followerEntity.getDestinationId")
     @Override
     public FollowerEntity createFollower(FollowerEntity followerEntity) {
         FollowerId followerId = new FollowerId(followerEntity.getSourceId(), followerEntity.getDestinationId());
@@ -31,11 +35,13 @@ public class FollowerImpl implements FollowerService {
         return followerEntity;
     }
 
+    @CacheEvict(cacheNames = "followers", key = "#followerId.getDestinationId")
     @Override
     public void deleteFollowerById(FollowerId followerId) {
         followerRepository.deleteById(followerId);
     }
 
+    @CacheEvict(cacheNames = "followers", key = "#followerEntity.getDestinationId")
     @Override
     public FollowerEntity updateFollower(FollowerEntity followerEntity) {
         return followerRepository.save(followerEntity);
@@ -56,8 +62,9 @@ public class FollowerImpl implements FollowerService {
         return followerRepository.getFollowerByDestinationId(destinationId);
     }
 
+    @Cacheable("followers")
     @Override
-    public List<FollowerIdDTO> getFollowersId(UUID sourceId) {
-        return followerRepository.getFollowersIdByDestinationId(sourceId, FollowerIdDTO.class);
+    public List<FollowerIdDTO> getFollowersId(UUID destinationId) {
+        return followerRepository.getFollowersIdByDestinationId(destinationId, FollowerIdDTO.class);
     }
 }

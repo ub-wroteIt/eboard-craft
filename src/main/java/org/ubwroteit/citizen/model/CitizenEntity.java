@@ -1,4 +1,4 @@
-package org.ubwroteit.citizen.entity;
+package org.ubwroteit.citizen.model;
 
 
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
 //For Administrative queries
 @FilterDef(name = "deletedCitizenFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedCitizenFilter", condition = "deleted = :isDeleted")
-public class Citizen  extends BaseEntity {
+public class CitizenEntity extends BaseEntity {
     private String firstName;
     private String lastName;
     private String emailId;

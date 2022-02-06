@@ -15,13 +15,19 @@ public class TopicConfig {
     @Value("${idea.topic:ideaTopic}")
     private String ideaTopicName;
 
+    @Value("${notification.topic:notificationTopic}")
+    private String notificationTopic;
+
     @Bean
     public KafkaAdmin.NewTopics eboardTopics() {
         return new KafkaAdmin.NewTopics(
                 TopicBuilder.name(followerTopicName)
                         .build(),
                 TopicBuilder.name(ideaTopicName)
-                        .build());
+                        .build(),
+                TopicBuilder.name(notificationTopic)
+                        .build()
+                );
     }
 
 }
