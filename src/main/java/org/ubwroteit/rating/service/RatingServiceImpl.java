@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.ubwroteit.contender.model.Contender;
 import org.ubwroteit.rating.model.RatingEntity;
 import org.ubwroteit.rating.model.RatingId;
 import org.ubwroteit.rating.repository.RatingRepository;
@@ -16,6 +17,7 @@ import org.ubwroteit.follower.model.FollowerStatus;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -67,6 +69,19 @@ public class RatingServiceImpl implements RatingService{
     @Override
     public List<RatingEntity> getRatingsByContender(UUID contenderId) {
         return ratingRepository.findByContenderId(contenderId);
+    }
+
+    /**
+     * select contenderId, IdeaId, avg(rating)
+     * from rating
+     * group by ContenderId, ideaId;
+     *
+     * @param contenderList
+     * @return
+     */
+    @Override
+    public Map<UUID, Float> getAverageRating(List<Contender> contenderList) {
+        return null;
     }
 
     private void publishFollowerMessage(RatingEntity ratingEntity) {

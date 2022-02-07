@@ -3,6 +3,8 @@ package org.ubwroteit.rating.controller;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.ubwroteit.common.model.ElectionCategory;
+import org.ubwroteit.contender.model.Contender;
 import org.ubwroteit.rating.model.RatingEntity;
 import org.ubwroteit.rating.model.RatingId;
 import org.ubwroteit.rating.service.RatingService;
@@ -38,11 +40,12 @@ public class RatingController {
         return ratingService.getRatingsByContender(contenderId);
     }
 
+
+
     @PostMapping
     public RatingEntity saveRating(@RequestBody RatingEntity ratingEntity) {
         RatingEntity savedRatingEntity = ratingService.saveRating(ratingEntity);
         return savedRatingEntity;
     }
-
 
 }
