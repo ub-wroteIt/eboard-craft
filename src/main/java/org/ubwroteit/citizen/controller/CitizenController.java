@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.ubwroteit.citizen.model.CitizenEntity;
 import org.ubwroteit.citizen.service.CitizenService;
-import org.ubwroteit.common.exception.ResourceExistException;
-import org.ubwroteit.common.exception.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Map;
@@ -40,29 +38,24 @@ public class CitizenController {
         return citizenService.getCitizenById(citizenId);
     }
 
+    @GetMapping("exist/{citizenId}")
+    public Boolean isElectionIdExist(@PathVariable UUID citizenId){
+        return citizenService.isCitizenExist(citizenId);
+    }
+
+
     @PostMapping("batch/contacts")
     public Map<UUID, String> getCitizensWithEmail(@RequestBody List<UUID> citizenIds){
         return citizenService.getCitizenEmails(citizenIds);
     }
 
     @PostMapping()
-    public CitizenEntity addCitizen(@RequestBody CitizenEntity citizenEntity) {
-        UUID citizenId = citizenEntity.getId();
-        if (citizenId != null) {
-            boolean citizenExist = citizenService.isCitizenExist(citizenId);
-            if (citizenExist) {
-                throw new ResourceExistException("Citizen already Exist id=" + citizenId);
-            }
-        }
-        return citizenService.saveCitizen(citizenEntity);
+    public CitizenEntity postCitizen(@RequestBody CitizenEntity citizenEntity) {
+        return citizenService.postCitizen(citizenEntity);
     }
 
-    @PutMapping("{citizenId}")
-    public CitizenEntity updateCitizen(@RequestBody CitizenEntity citizenEntity, @PathVariable UUID citizenId) {
-        if (!citizenService.isCitizenExist(citizenId)) {
-            throw new ResourceNotFoundException("Citizen Id provided for update does not exist");
-        }
-        citizenEntity.setId(citizenId);
+    @PutMapping()
+    public CitizenEntity updateCitizen(@RequestBody CitizenEntity citizenEntity) {
         return citizenService.saveCitizen(citizenEntity);
     }
 

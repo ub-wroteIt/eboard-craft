@@ -26,6 +26,11 @@ public class ElectionController {
         return electionService.getElection(electionId);
     }
 
+    @GetMapping("exist/{electionId}")
+    public Boolean isElectionIdExist(@PathVariable UUID electionId){
+        return electionService.isElectionIdExist(electionId);
+    }
+
     @DeleteMapping("{electionId}")
     public void deleteElection(@PathVariable UUID electionId){
         electionService.deleteElection(electionId);

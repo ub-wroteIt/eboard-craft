@@ -33,6 +33,11 @@ public class ContenderController {
         contenderService.deleteContender(contenderId);
     }
 
+    @GetMapping("exist/{contenderId}")
+    public Boolean isContenderIdExist(@PathVariable UUID contenderId){
+        return contenderService.isContenderIdExist(contenderId);
+    }
+
     @GetMapping("/search/{electionId}")
     public List<Contender> getContenders(@PathVariable UUID electionId, @RequestParam int areaId, @RequestParam ElectionCategory electionCategory){
         return contenderService.findAllContenders(electionId, areaId, electionCategory);

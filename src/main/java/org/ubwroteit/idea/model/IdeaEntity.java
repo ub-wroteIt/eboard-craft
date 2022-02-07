@@ -1,4 +1,4 @@
-package org.ubwroteit.board.model;
+package org.ubwroteit.idea.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

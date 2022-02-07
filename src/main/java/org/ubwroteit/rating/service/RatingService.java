@@ -1,7 +1,7 @@
-package org.ubwroteit.board.service;
+package org.ubwroteit.rating.service;
 
-import org.ubwroteit.board.model.RatingEntity;
-import org.ubwroteit.board.model.RatingId;
+import org.ubwroteit.rating.model.RatingEntity;
+import org.ubwroteit.rating.model.RatingId;
 
 import java.util.List;
 import java.util.UUID;

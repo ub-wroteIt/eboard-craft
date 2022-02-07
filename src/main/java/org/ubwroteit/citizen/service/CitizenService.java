@@ -8,6 +8,9 @@ import java.util.UUID;
 
 public interface CitizenService {
     CitizenEntity getCitizenById(UUID citizenId);
+
+    CitizenEntity postCitizen(CitizenEntity citizenEntity);
+
     CitizenEntity saveCitizen(CitizenEntity citizenEntity);
     boolean isCitizenExist(UUID citizenId);
     void deleteCitizen(UUID citizenId);

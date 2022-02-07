@@ -20,4 +20,10 @@ public class ControllerExceptionHandler {
     public ErrorMessage resourceNotFoundException(ResourceNotFoundException resourceNotFoundException, WebRequest request){
         return new ErrorMessage(new Date(), resourceNotFoundException.getMessage(),request.getDescription(false));
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public ErrorMessage handleIllegalArgumentException(IllegalArgumentException illegalArgumentException, WebRequest request){
+        return new ErrorMessage(new Date(), illegalArgumentException.getMessage(),request.getDescription(false));
+    }
 }

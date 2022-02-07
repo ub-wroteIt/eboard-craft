@@ -32,8 +32,7 @@ public class FollowerController {
 
     @GetMapping("allFollowers/{sourceId}")
     public Set<UUID> getFollowersId(@PathVariable UUID sourceId){
-        List<FollowerIdDTO> followers = followerService.getFollowersId(sourceId);
-        return followers.stream().map(FollowerIdDTO::getSourceId).collect(Collectors.toSet());
+        return followerService.getFollowersId(sourceId);
     }
 
     @PostMapping

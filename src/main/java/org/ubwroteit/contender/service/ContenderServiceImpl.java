@@ -36,4 +36,9 @@ public class ContenderServiceImpl implements ContenderService {
     public List<Contender> findAllContenders(UUID electionId, int areaId, ElectionCategory electionCategory) {
         return contenderRepository.findAllByElectionIdAndAreaIdAndCategory(electionId, areaId, electionCategory);
     }
+
+    @Override
+    public Boolean isContenderIdExist(UUID contenderId) {
+        return contenderRepository.existsById(contenderId);
+    }
 }

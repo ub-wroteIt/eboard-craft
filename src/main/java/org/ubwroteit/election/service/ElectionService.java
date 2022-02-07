@@ -10,4 +10,6 @@ public interface ElectionService {
     ElectionEntity saveElection(ElectionEntity electionEntity);
     ElectionEntity updateElection(ElectionEntity electionEntity);
     ElectionEntity getElection(UUID electionId);
+
+    Boolean isElectionIdExist(UUID electionId);
 }

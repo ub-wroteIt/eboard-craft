@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.ubwroteit.citizen.model.CitizenContactDTO;
 import org.ubwroteit.citizen.model.CitizenEntity;
 import org.ubwroteit.citizen.repository.CitizenRepository;
+import org.ubwroteit.common.exception.ResourceExistException;
 import org.ubwroteit.common.exception.ResourceNotFoundException;
 
 import java.util.List;
@@ -25,7 +26,22 @@ public class CitizenServiceImpl implements CitizenService {
     }
 
     @Override
+    public CitizenEntity postCitizen(CitizenEntity citizenEntity) {
+        UUID citizenId = citizenEntity.getId();
+        if (citizenId != null) {
+            boolean citizenExist = isCitizenExist(citizenId);
+            if (citizenExist) {
+                throw new ResourceExistException("Citizen already Exist id=" + citizenId);
+            }
+        }
+        return citizenRepository.save(citizenEntity);
+    }
+
+    @Override
     public CitizenEntity saveCitizen(CitizenEntity citizenEntity) {
+        if (!isCitizenExist(citizenEntity.getId())) {
+            throw new ResourceNotFoundException("Citizen Id provided for update does not exist");
+        }
         return citizenRepository.save(citizenEntity);
     }
 

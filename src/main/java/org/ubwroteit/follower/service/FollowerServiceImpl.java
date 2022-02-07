@@ -10,7 +10,9 @@ import org.ubwroteit.follower.model.FollowerIdDTO;
 import org.ubwroteit.follower.repository.FollowerRepository;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class FollowerServiceImpl implements FollowerService {
@@ -64,7 +66,8 @@ public class FollowerServiceImpl implements FollowerService {
 
     @Cacheable("followers")
     @Override
-    public List<FollowerIdDTO> getFollowersId(UUID destinationId) {
-        return followerRepository.getFollowersIdByDestinationId(destinationId, FollowerIdDTO.class);
+    public Set<UUID> getFollowersId(UUID destinationId) {
+        List<FollowerIdDTO> followerIdDTOS = followerRepository.getFollowersIdByDestinationId(destinationId, FollowerIdDTO.class);
+        return followerIdDTOS.stream().map(FollowerIdDTO::getSourceId).collect(Collectors.toSet());
     }
 }

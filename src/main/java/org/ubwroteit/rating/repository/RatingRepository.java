@@ -1,9 +1,9 @@
-package org.ubwroteit.board.repository;
+package org.ubwroteit.rating.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import org.ubwroteit.board.model.RatingEntity;
-import org.ubwroteit.board.model.RatingId;
+import org.ubwroteit.rating.model.RatingEntity;
+import org.ubwroteit.rating.model.RatingId;
 
 import java.util.List;
 import java.util.UUID;

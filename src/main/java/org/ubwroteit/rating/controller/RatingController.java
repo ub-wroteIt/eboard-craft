@@ -1,11 +1,11 @@
-package org.ubwroteit.board.controller;
+package org.ubwroteit.rating.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.ubwroteit.board.model.RatingEntity;
-import org.ubwroteit.board.model.RatingId;
-import org.ubwroteit.board.service.RatingService;
+import org.ubwroteit.rating.model.RatingEntity;
+import org.ubwroteit.rating.model.RatingId;
+import org.ubwroteit.rating.service.RatingService;
 
 import java.util.List;
 import java.util.UUID;

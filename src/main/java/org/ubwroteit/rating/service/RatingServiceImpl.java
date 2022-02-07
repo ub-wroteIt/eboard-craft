@@ -1,13 +1,13 @@
-package org.ubwroteit.board.service;
+package org.ubwroteit.rating.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.ubwroteit.board.model.RatingEntity;
-import org.ubwroteit.board.model.RatingId;
-import org.ubwroteit.board.repository.RatingRepository;
+import org.ubwroteit.rating.model.RatingEntity;
+import org.ubwroteit.rating.model.RatingId;
+import org.ubwroteit.rating.repository.RatingRepository;
+import org.ubwroteit.common.validation.DomainValidationService;
 import org.ubwroteit.common.exception.ResourceNotFoundException;
 import org.ubwroteit.common.model.FollowerMessage;
 import org.ubwroteit.common.queue.Producer;
@@ -21,6 +21,12 @@ import java.util.UUID;
 @Service
 public class RatingServiceImpl implements RatingService{
 
+    @Value("${follower.topic:followerTopic}")
+    private String topicName;
+
+    @Value("${rating.threshold:5}")
+    private int RATING_THRESHOLD;
+
     @Autowired
     private RatingRepository ratingRepository;
 
@@ -28,21 +34,19 @@ public class RatingServiceImpl implements RatingService{
     @Autowired
     private Producer<FollowerMessage> producer;
 
-    @Value("${follower.topic:followerTopic}")
-    private String topicName;
+    @Qualifier("RatingValidator")
+    @Autowired
+    DomainValidationService<RatingEntity> validationService;
 
     @Override
-    //@Transactional("dstm")
     public RatingEntity saveRating(RatingEntity ratingEntity) {
-        if(ratingEntity.getRating()>5){
-            //Citizen becomes a follower
-            long timeStamp = Timestamp.from(Instant.now()).getTime();
-            FollowerMessage followerMessage = new FollowerMessage(ratingEntity.getCitizenId(), ratingEntity.getContenderId(), timeStamp , FollowerStatus.POSITIVE);
-            producer.produceMessage(topicName, followerMessage);
-
+        validationService.validate(ratingEntity);
+        if(ratingEntity.getRating()> RATING_THRESHOLD){
+            publishFollowerMessage(ratingEntity);
         }
         return ratingRepository.save(ratingEntity);
     }
+
 
     @Override
     public RatingEntity getRating(RatingId ratingId) {
@@ -64,4 +68,11 @@ public class RatingServiceImpl implements RatingService{
     public List<RatingEntity> getRatingsByContender(UUID contenderId) {
         return ratingRepository.findByContenderId(contenderId);
     }
+
+    private void publishFollowerMessage(RatingEntity ratingEntity) {
+        long timeStamp = Timestamp.from(Instant.now()).getTime();
+        FollowerMessage followerMessage = new FollowerMessage(ratingEntity.getCitizenId(), ratingEntity.getContenderId(), timeStamp , FollowerStatus.POSITIVE);
+        producer.produceMessage(topicName, followerMessage);
+    }
+
 }

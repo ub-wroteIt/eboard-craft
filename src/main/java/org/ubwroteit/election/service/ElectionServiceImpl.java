@@ -32,4 +32,11 @@ public class ElectionServiceImpl implements ElectionService{
     public ElectionEntity getElection(UUID electionId) {
         return electionRepository.getById(electionId);
     }
+
+    @Override
+    public Boolean isElectionIdExist(UUID electionId) {
+        return electionRepository.existsById(electionId);
+    }
+
+
 }

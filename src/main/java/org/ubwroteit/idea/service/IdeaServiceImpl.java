@@ -1,13 +1,13 @@
-package org.ubwroteit.board.service;
+package org.ubwroteit.idea.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.ubwroteit.board.model.IdeaEntity;
-import org.ubwroteit.board.repository.IdeaRepository;
 import org.ubwroteit.common.model.IdeaMessage;
 import org.ubwroteit.common.queue.Producer;
+import org.ubwroteit.idea.model.IdeaEntity;
+import org.ubwroteit.idea.repository.IdeaRepository;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -65,6 +65,16 @@ public class IdeaServiceImpl implements IdeaService{
             return Optional.of(ideaRepository.save(ideaEntity));
         }
         return saveIdea(ideaEntity);
+    }
+
+    @Override
+    public List<IdeaEntity> findAllIdeas(UUID electionId) {
+        return ideaRepository.findAllByElectionId(electionId);
+    }
+
+    @Override
+    public Boolean isIdeaIdExist(UUID ideaId) {
+        return ideaRepository.existsById(ideaId);
     }
 
     private boolean isContenderHasMaximumIdeas(UUID contenderId){

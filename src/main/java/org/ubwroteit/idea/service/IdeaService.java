@@ -1,6 +1,6 @@
-package org.ubwroteit.board.service;
+package org.ubwroteit.idea.service;
 
-import org.ubwroteit.board.model.IdeaEntity;
+import org.ubwroteit.idea.model.IdeaEntity;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +17,8 @@ public interface IdeaService {
      IdeaEntity getIdea(UUID ideaId);
 
      Optional<IdeaEntity> updateIdea(IdeaEntity ideaEntity);
+
+    List<IdeaEntity> findAllIdeas(UUID electionId);
+
+     Boolean isIdeaIdExist(UUID ideaId);
 }

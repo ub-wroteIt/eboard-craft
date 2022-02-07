@@ -1,12 +1,12 @@
-package org.ubwroteit.board.controller;
+package org.ubwroteit.idea.controller;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.ubwroteit.board.model.IdeaEntity;
-import org.ubwroteit.board.service.IdeaService;
+import org.ubwroteit.idea.model.IdeaEntity;
+import org.ubwroteit.idea.service.IdeaService;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,6 +25,17 @@ public class IdeaController {
         return ideaService.getAllIdeas(contenderId);
     }
 
+    @GetMapping("/search/{electionId}")
+    public List<IdeaEntity> findAllIdeas(@PathVariable UUID electionId){
+        return ideaService.findAllIdeas(electionId);
+    }
+
+    @GetMapping("exist/{ideaId}")
+    public Boolean isIdeaIdExist(@PathVariable UUID ideaId){
+        return ideaService.isIdeaIdExist(ideaId);
+    }
+
+
     @PutMapping
     public ResponseEntity<?> updateIdea(@RequestBody IdeaEntity ideaEntity){
         Optional<IdeaEntity> upsertedIdeaEntity = ideaService.updateIdea(ideaEntity);
@@ -41,6 +52,7 @@ public class IdeaController {
     public void deleteIdea(@PathVariable UUID ideaId){
         ideaService.deleteIdea(ideaId);
     }
+
 
     private ResponseEntity<?> getResponseEntity(Optional<?> savedIdeaEntity) {
         if(savedIdeaEntity.isPresent()){

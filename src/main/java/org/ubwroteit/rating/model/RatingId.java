@@ -1,4 +1,4 @@
-package org.ubwroteit.board.model;
+package org.ubwroteit.rating.model;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

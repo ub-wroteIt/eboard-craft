@@ -16,4 +16,6 @@ public interface ContenderService {
     void deleteContender(UUID contenderId);
 
     List<Contender> findAllContenders(UUID electionId, int areaId, ElectionCategory electionCategory);
+
+    Boolean isContenderIdExist(UUID contenderId);
 }
